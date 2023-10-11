@@ -1,18 +1,47 @@
 from fastapi import FastAPI
-import wikipedia
-
-
-# print(wikipedia.summary("Bill Gates", sentences=2))
-# print(wikipedia.suggest("Bill cliton"))
-# print(wikipedia.summary("Ubuntu"))
-# print(wikipedia.summary("Key (cryptography)"))
-# print(wikipedia.page("Python (programming language)").content)
-
+from Class import N, FIO, Fio
 add = FastAPI()
-@add.get("/cont")
-def cont(inf: str):
-    return wikipedia.page(inf).content
+
 
 @add.get("/summ/{number}")
-def summ(summary: str, number_of_sentences: int):
-    return wikipedia.summary(summary, sentences=number_of_sentences)
+def summ(number: int):
+    return N(num=number)
+
+# path
+
+
+@add.get("/summa/")
+def summa(name: str, surname: str):
+    return Fio(F=name, S=surname)
+
+# query
+
+
+@add.post("/class", response_model=Fio)
+def clas(fio: FIO):
+    return Fio(F=fio.name, S=fio.surname)
+# post
+
+
+
+
+
+
+
+
+
+
+# @add.get("/{search}")
+# def src(search : str):
+#     return wikipedia.summary(search, sentences=7)
+# @add.get("/next/{search}")
+# def low_sentence_summary(search:str,number:int):
+#     return wikipedia.summary(search, sentences=number)
+#
+# class wikiinput(BaseModel):
+#     sear : str
+#     snt : int
+#
+# @add.post("/class")
+# def rep(src: wikiinput):
+#     return(wikipedia.search(src.sear, results=src.snt))
